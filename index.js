@@ -13,8 +13,8 @@ app
 
 app.use(error);
 
-app.listen(process.env.PORT, () => {
-  console.log(`ouvindo porta ${process.env.PORT}!`);
+app.listen(process.env.PORT || 3000, () => {
+  console.log(`ouvindo porta ${process.env.PORT || 3000}!`);
 });
 
 // não remova esse endpoint, e para o avaliador funcionar

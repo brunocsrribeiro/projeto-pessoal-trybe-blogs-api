@@ -22,7 +22,7 @@ const create = async (userData) => {
   return { token };
 };
 
-const findByEmail = async (email) => {
+const findByExistingEmail = async (email) => {
   console.log(email);
   const thisEmailExist = await User.findOne({
     where: {
@@ -33,7 +33,18 @@ const findByEmail = async (email) => {
   return thisEmailExist;
 };
 
+const getAll = async (userData) => {
+  const getAllUsers = await User.findAll(userData, {
+    attributes: {
+      exclude: ['password'],
+    },
+  });
+
+  return getAllUsers;
+};
+
 module.exports = {
   create,
-  findByEmail,
+  getAll,
+  findByExistingEmail,
 };

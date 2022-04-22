@@ -13,6 +13,19 @@ const create = async (req, res, next) => {
   }
 };
 
+const getAll = async (req, res, next) => {
+  try {
+    const { displayName, email, password, image } = req.body;
+
+    const getAllUsers = await userService.getAll({ displayName, email, password, image });
+
+    return res.status(StatusCodes.OK).json(getAllUsers);
+  } catch (error) {
+    next(error);
+  }
+};
+
 module.exports = {
   create,
+  getAll,
 };

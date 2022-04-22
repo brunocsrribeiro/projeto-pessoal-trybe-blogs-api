@@ -23,10 +23,10 @@ const ValidLogin = (req, _res, next) => {
   next();
 };
 
-const findByEmail = async (req, res, next) => {
+const findByExistingEmail = async (req, res, next) => {
   const { email } = req.body;
 
-  const thisEmailExists = await userServices.findByEmail(email);
+  const thisEmailExists = await userServices.findByExistingEmail(email);
   
   if (thisEmailExists) {
     return res.status(StatusCodes.CONFLICT).json({ message: 'User already registered' });
@@ -35,10 +35,10 @@ const findByEmail = async (req, res, next) => {
   next();
 };
 
-const findByUser = async (req, res, next) => {
+const findByEmailNotExisting = async (req, res, next) => {
   const { email } = req.body;
 
-  const thisEmailExists = await userServices.findByEmail(email);
+  const thisEmailExists = await userServices.findByExistingEmail(email);
   
   if (!thisEmailExists) {
     return res.status(StatusCodes.BAD_REQUEST).json({ message: 'Invalid fields' });
@@ -50,6 +50,6 @@ const findByUser = async (req, res, next) => {
 module.exports = {
   Validated,
   ValidLogin,
-  findByEmail,
-  findByUser,
+  findByExistingEmail,
+  findByEmailNotExisting,
 };
