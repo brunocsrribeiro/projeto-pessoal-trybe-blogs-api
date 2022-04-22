@@ -43,8 +43,22 @@ const getAll = async (userData) => {
   return getAllUsers;
 };
 
+const getById = async (id) => {
+  const getUserById = await User.findByPk(id, {
+    where: {
+      id,
+    },
+    attributes: {
+      exclude: ['password'],
+    },
+  });
+
+  return getUserById;
+};
+
 module.exports = {
   create,
   getAll,
+  getById,
   findByExistingEmail,
 };

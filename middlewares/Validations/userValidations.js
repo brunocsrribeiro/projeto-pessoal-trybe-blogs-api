@@ -47,9 +47,22 @@ const findByEmailNotExisting = async (req, res, next) => {
   next();
 };
 
+const findByExistingUser = async (req, res, next) => {
+  const { id } = req.params;
+
+  const thisUserExists = await userServices.getById(id);
+  
+  if (!thisUserExists) {
+    return res.status(StatusCodes.NOT_FOUND).json({ message: 'User does not exist' });
+  }
+
+  next();
+};
+
 module.exports = {
   Validated,
   ValidLogin,
   findByExistingEmail,
   findByEmailNotExisting,
+  findByExistingUser,
 };
