@@ -1,6 +1,6 @@
 const express = require('express');
 const userController = require('../controllers/User');
-const { Validated, findByEmail } = require('../middlewares/Validations/ValidationsUsers');
+const { Validated, findByEmail } = require('../middlewares/Validations/userValidations');
 
 const usersRoutes = express.Router();
 

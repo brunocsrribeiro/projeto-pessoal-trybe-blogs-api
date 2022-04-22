@@ -23,6 +23,7 @@ const create = async (userData) => {
 };
 
 const findByEmail = async (email) => {
+  console.log(email);
   const thisEmailExist = await User.findOne({
     where: {
       email,

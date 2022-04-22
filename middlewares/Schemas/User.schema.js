@@ -7,4 +7,12 @@ const schemaUsers = Joi.object().keys({
   image: Joi.string(),
 });
 
-module.exports = schemaUsers;
+const schemaLogin = Joi.object().keys({
+  email: Joi.string().email().empty().required(),
+  password: Joi.string().length(6).empty().required(),
+});
+
+module.exports = {
+  schemaUsers,
+  schemaLogin,
+};
