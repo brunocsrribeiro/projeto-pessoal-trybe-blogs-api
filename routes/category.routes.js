@@ -6,6 +6,7 @@ const validationToken = require('../middlewares/Auth/validateToken');
 const categoryRouter = express.Router();
 
 categoryRouter
-  .post('/', Validated, validationToken, categoryController.create);
+  .post('/', Validated, validationToken, categoryController.create)
+  .get('/', validationToken, categoryController.getAll);
 
 module.exports = categoryRouter;
