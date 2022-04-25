@@ -4,13 +4,13 @@ const {
   Validated,
   findByExistingEmail,
   findByExistingUser } = require('../middlewares/Validations/userValidations');
-const validationToken = require('../middlewares/Auth/validateToken');
+const { ValidationToken } = require('../middlewares/Auth/validateToken');
 
 const usersRoutes = express.Router();
 
 usersRoutes
   .post('/', Validated, findByExistingEmail, userController.create)
-  .get('/', validationToken, userController.getAll)
-  .get('/:id', validationToken, findByExistingUser, userController.getById);
+  .get('/', ValidationToken, userController.getAll)
+  .get('/:id', ValidationToken, findByExistingUser, userController.getById);
   
 module.exports = usersRoutes;

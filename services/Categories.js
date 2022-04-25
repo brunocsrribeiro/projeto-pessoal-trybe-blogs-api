@@ -13,7 +13,16 @@ const getAll = async (categoryData) => {
   return getAllCategories;
 };
 
+const getById = async (categoryId) => {
+  const getCategoryById = await Promise.all(
+    categoryId.map((id) => Category.findByPk(id)),
+  );
+
+  return getCategoryById;
+};
+
 module.exports = {
   create,
   getAll,
+  getById,
 };

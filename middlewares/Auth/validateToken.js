@@ -5,16 +5,24 @@ require('dotenv/config');
 
 const SECRET = process.env.JWT_SECRET;
 
+const decodedToken = (token) => {
+  try {
+    const decoded = jwt.verify(token, SECRET);
+    return decoded;
+  } catch (error) {
+    console.log(`Erro dentro no decoded ${error}`);
+  }
+};
+
 const ValidationToken = async (req, res, next) => {
   const token = req.headers.authorization;
-  console.log(token);
 
   if (!token) {
     return res.status(StatusCodes.UNAUTHORIZED).json({ message: 'Token not found' });
   }
 
   try {
-    const decoded = jwt.verify(token, SECRET);
+    const decoded = decodedToken(token);
     const user = await User.findOne({ where: { displayName: decoded.data.displayName } });
 
     req.user = user;
@@ -24,4 +32,7 @@ const ValidationToken = async (req, res, next) => {
   }
 };
 
-module.exports = ValidationToken;
+module.exports = {
+  ValidationToken,
+  decodedToken,
+};

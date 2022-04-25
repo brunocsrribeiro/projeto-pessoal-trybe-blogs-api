@@ -1,12 +1,12 @@
 const express = require('express');
 const categoryController = require('../controllers/Categories');
 const { Validated } = require('../middlewares/Validations/categoryValidations');
-const validationToken = require('../middlewares/Auth/validateToken');
+const { ValidationToken } = require('../middlewares/Auth/validateToken');
 
 const categoryRouter = express.Router();
 
 categoryRouter
-  .post('/', Validated, validationToken, categoryController.create)
-  .get('/', validationToken, categoryController.getAll);
+  .post('/', Validated, ValidationToken, categoryController.create)
+  .get('/', ValidationToken, categoryController.getAll);
 
 module.exports = categoryRouter;
