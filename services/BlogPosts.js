@@ -1,7 +1,7 @@
 const Sequelize = require('sequelize');
 const config = require('../config/config');
 const { decodedToken } = require('../middlewares/Auth/validateToken');
-const { BlogPost, PostsCategory } = require('../models');
+const { BlogPost, PostsCategory, User, Category } = require('../models');
 require('dotenv/config');
 
 const sequelize = new Sequelize(config.development);
@@ -26,8 +26,19 @@ const create = async ({ title, content, categoryIds }, tokenUser) => {
   }
 };
 
-const getAll = async (blogPostData) => {
-  const getAllBlogPosts = await BlogPost.findAll(blogPostData);
+const getAll = async () => {
+  const getAllBlogPosts = await BlogPost.findAll({
+    include: [
+      {
+        model: User,
+        as: 'user',
+      },
+      {
+        model: Category,
+        as: 'categories',
+      },
+    ],
+  });
 
   return getAllBlogPosts;
 };

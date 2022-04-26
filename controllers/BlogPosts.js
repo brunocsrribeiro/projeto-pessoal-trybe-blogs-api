@@ -21,9 +21,8 @@ const create = async (req, res, next) => {
 
 const getAll = async (req, res, next) => {
   try {
-    const { title, content, categoryIds } = req.body;
-
-    const getAllBlogPosts = await blogPostService.getAll({ title, content, categoryIds });
+    const { id } = req.params;
+    const getAllBlogPosts = await blogPostService.getAll(id);
 
     return res.status(StatusCodes.OK).json(getAllBlogPosts);
   } catch (error) {
