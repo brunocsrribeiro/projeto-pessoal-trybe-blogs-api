@@ -10,7 +10,7 @@ const decodedToken = (token) => {
     const decoded = jwt.verify(token, SECRET);
     return decoded;
   } catch (error) {
-    console.log(`Erro dentro no decoded ${error}`);
+    console.error(error.message);
   }
 };
 

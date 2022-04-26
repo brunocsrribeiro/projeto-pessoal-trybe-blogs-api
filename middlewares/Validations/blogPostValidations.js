@@ -1,4 +1,6 @@
+const { StatusCodes } = require('http-status-codes');
 const { schemaBlogPost } = require('../Schemas/BlogPosts.schema');
+const blogPostServices = require('../../services/BlogPosts');
 require('../Errors');
 
 const Validated = (req, _res, next) => {
@@ -11,6 +13,19 @@ const Validated = (req, _res, next) => {
   next();
 };
 
+const findByExistingPost = async (req, res, next) => {
+  const { id } = req.params;
+
+  const thisPostExists = await blogPostServices.getById(id);
+  
+  if (!thisPostExists) {
+    return res.status(StatusCodes.NOT_FOUND).json({ message: 'Post does not exist' });
+  }
+
+  next();
+};
+
 module.exports = {
   Validated,
+  findByExistingPost,
 };

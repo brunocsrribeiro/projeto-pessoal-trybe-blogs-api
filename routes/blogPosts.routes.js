@@ -1,6 +1,6 @@
 const express = require('express');
 const blogPostsController = require('../controllers/BlogPosts');
-const { Validated } = require('../middlewares/Validations/blogPostValidations');
+const { Validated, findByExistingPost } = require('../middlewares/Validations/blogPostValidations');
 const { ValidationToken } = require('../middlewares/Auth/validateToken');
 const { findByExistingCategory } = require('../middlewares/Validations/categoryValidations');
 
@@ -12,6 +12,7 @@ blogPostRouter
     ValidationToken,
     findByExistingCategory,
     blogPostsController.create)
-  .get('/', ValidationToken, blogPostsController.getAll);
+  .get('/', ValidationToken, blogPostsController.getAll)
+  .get('/:id', ValidationToken, findByExistingPost, blogPostsController.getById);
 
 module.exports = blogPostRouter;
