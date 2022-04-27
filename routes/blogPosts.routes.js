@@ -22,6 +22,11 @@ blogPostRouter
     ValidationToken,
     findByExistingPost,
     checkingUserPermission,
-    blogPostsController.update);
+    blogPostsController.update)
+  .delete('/:id',
+    ValidationToken,
+    findByExistingPost,
+    checkingUserPermission,
+    blogPostsController.deleted);
 
 module.exports = blogPostRouter;

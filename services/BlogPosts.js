@@ -96,10 +96,19 @@ const update = async ({ id, title, content, categoryIds }) => {
   return dataValues;
 };
 
+const deleted = async (id) => {
+  const deleteBlogPost = await BlogPost.destroy({
+    where: { id },
+  });  
+
+  return deleteBlogPost;
+};
+
 module.exports = {
   create,
   getAll,
   getById,
   update,
+  deleted,
   checkingUserPermission,
 };

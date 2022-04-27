@@ -57,9 +57,21 @@ const update = async (req, res, next) => {
   }
 };
 
+const deleted = async (req, res, next) => {
+  try {
+    const { id } = req.params;
+    await blogPostService.deleted(id);
+
+    return res.status(StatusCodes.NO_CONTENT).end();
+  } catch (error) {
+    next(error);
+  }
+};
+
 module.exports = {
   create,
   getAll,
   getById,
   update,
+  deleted,
 };

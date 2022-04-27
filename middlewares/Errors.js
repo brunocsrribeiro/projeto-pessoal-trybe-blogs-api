@@ -3,6 +3,7 @@ const Joi = require('joi');
 
 const error = (err, _req, res, _next) => {
   const errorJoi = Joi.isError(err);
+  console.log(err);
 
   if (errorJoi) {
     return res.status(StatusCodes.BAD_REQUEST).json({ message: err.message });
