@@ -64,8 +64,42 @@ const getById = async (id) => {
   return getBlogPostById;
 };
 
+const checkingUserPermission = async (id) => {
+  const checking = await BlogPost.findByPk(id, {
+    where: {
+      id,
+    },
+  });
+
+  return checking;
+};
+
+const update = async ({ id, title, content, categoryIds }) => {
+  await BlogPost.update(
+    { title, content, categoryIds },
+    { where: { id } },
+  );
+
+  const { dataValues } = await BlogPost.findByPk(id, {
+    where: { id },
+    include: [
+      {
+        model: Category,
+        as: 'categories',
+        through: {
+          attributes: [],
+        },
+      },
+    ],
+  });
+  
+  return dataValues;
+};
+
 module.exports = {
   create,
   getAll,
   getById,
+  update,
+  checkingUserPermission,
 };

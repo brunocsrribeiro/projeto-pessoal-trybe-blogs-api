@@ -3,6 +3,7 @@ const { User } = require('../models');
 require('dotenv/config');
 
 const jwtConfig = {
+  expiresIn: '24h',
   algorithm: 'HS256',
 };
 

@@ -23,9 +23,10 @@ const ValidationToken = async (req, res, next) => {
 
   try {
     const decoded = decodedToken(token);
-    const user = await User.findOne({ where: { displayName: decoded.data.displayName } });
+    const { dataValues } = await User.findOne({ where: { displayName: decoded.data.displayName } });
+    
+    req.user = dataValues;
 
-    req.user = user;
     next();
   } catch (error) {
     return res.status(StatusCodes.UNAUTHORIZED).json({ message: 'Expired or invalid token' });
