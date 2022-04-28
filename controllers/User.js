@@ -37,8 +37,20 @@ const getById = async (req, res, next) => {
   }
 };
 
+const deleted = async (req, res, next) => {
+  try {
+    const { id } = req.user;
+    await userService.deleted(id);
+
+    return res.status(StatusCodes.NO_CONTENT).end();
+  } catch (error) {
+    next(error);
+  }
+};
+
 module.exports = {
   create,
   getAll,
   getById,
+  deleted,
 };

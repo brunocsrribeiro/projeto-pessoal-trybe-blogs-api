@@ -11,6 +11,7 @@ const usersRoutes = express.Router();
 usersRoutes
   .post('/', Validated, findByExistingEmail, userController.create)
   .get('/', ValidationToken, userController.getAll)
-  .get('/:id', ValidationToken, findByExistingUser, userController.getById);
+  .get('/:id', ValidationToken, findByExistingUser, userController.getById)
+  .delete('/me', ValidationToken, userController.deleted);
   
 module.exports = usersRoutes;
