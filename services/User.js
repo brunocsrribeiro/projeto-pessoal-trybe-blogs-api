@@ -60,8 +60,8 @@ const deleted = async (id) => {
     where: {
       id,
     },
-  }); 
-  console.log(deleteUser);
+  });
+
   return deleteUser;
 };
 

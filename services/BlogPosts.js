@@ -104,11 +104,29 @@ const deleted = async (id) => {
   return deleteBlogPost;
 };
 
+const getAllSearch = async (q) => {
+  const search = await BlogPost.findAll({
+    where: {
+      [Sequelize.Op.or]: [
+        { title: { [Sequelize.Op.substring]: q } },
+        { content: { [Sequelize.Op.substring]: q } },
+      ],
+    },
+    include: [
+      { model: User, as: 'user', attributes: { exclude: ['password'] } },
+      { model: Category, as: 'categories', through: { attributes: [] } },
+    ],
+  });
+
+  return search;
+};
+
 module.exports = {
   create,
   getAll,
   getById,
   update,
   deleted,
+  getAllSearch,
   checkingUserPermission,
 };

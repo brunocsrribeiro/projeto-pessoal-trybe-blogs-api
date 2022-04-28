@@ -16,6 +16,7 @@ blogPostRouter
     findByExistingCategory,
     blogPostsController.create)
   .get('/', ValidationToken, blogPostsController.getAll)
+  .get('/search', ValidationToken, blogPostsController.getAllSearch)
   .get('/:id', ValidationToken, findByExistingPost, blogPostsController.getById)
   .put('/:id',
     ValidUpdate,

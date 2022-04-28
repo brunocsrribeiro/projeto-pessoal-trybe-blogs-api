@@ -40,6 +40,17 @@ const getById = async (req, res, next) => {
   }
 };
 
+const getAllSearch = async (req, res, next) => {
+  const { q } = req.query;
+  try {
+    const search = await blogPostService.getAllSearch(q);
+
+    return res.status(StatusCodes.OK).json(search);
+  } catch (error) {
+    next(error);
+  }
+};
+
 const update = async (req, res, next) => {
   try {
     const { id } = req.params;
@@ -74,4 +85,5 @@ module.exports = {
   getById,
   update,
   deleted,
+  getAllSearch,
 };
